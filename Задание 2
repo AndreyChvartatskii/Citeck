@@ -1,0 +1,23 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+public class Zadanie2 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Введите скобки [] или () ");
+        String string = reader.readLine();
+        char[] array = string.toCharArray();
+        int count = 0;
+        for (int i =0; i< array.length; i++){
+            if (array[i] == '(' || array[i] == '[')
+                count++;
+            else if (array[i] == ')' || array[i] == ']')
+                count--;
+        }
+        if (count == 0){
+            System.out.println("Введено четное количество скобок(правильно)");
+        }else
+            System.out.println("Введено нечетное количество скобок(неправильно)");
+
+    }
+}
