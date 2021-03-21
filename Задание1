@@ -1,0 +1,29 @@
+import java.util.*;
+import java.util.concurrent.atomic.*;
+import static java.util.Map.*;
+
+class Zadanie1 {
+    public static void main(String[] args) {
+        int[] mass = {5,3,4,67,846,5,53,6,74,24,4,34,67,54,74,0,4,3,2,67,86,34,52,34,54,67,67};
+
+        Map<Integer, AtomicInteger> map=new HashMap<>();
+        for (int i = 0; i < mass.length; i++) {
+            if(map.containsKey(mass[i])){
+                map.get(mass[i]).incrementAndGet();
+            } else{
+                map.put(mass[i], new AtomicInteger(1));
+            }
+        }
+        List<Entry<Integer, AtomicInteger>> entries = new ArrayList<>(map.entrySet());
+        Collections.sort(entries, new Comparator<Entry<Integer, AtomicInteger>>() {
+            public int compare(Entry<Integer, AtomicInteger> a, Entry<Integer, AtomicInteger> b) {
+                return Long.compare(
+                        a.getValue().get() * ((long) Integer.MAX_VALUE) + a.getKey(),
+                        b.getValue().get() * ((long) Integer.MAX_VALUE) + b.getKey());
+            }
+        });
+        for (Entry<Integer, AtomicInteger> entry : entries) {
+            System.out.println("Число "+ entry.getKey() +" встречается " + entry.getValue().get()+ " раз(а).");
+        }
+    }
+}
